@@ -1,0 +1,7 @@
+% number of games is 4
+
+num = 4;
+cap = 5;
+refill = 2;
+fun = [14,-10,4,-11];
+%K = 50;

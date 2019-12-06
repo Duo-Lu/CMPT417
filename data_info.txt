@@ -1,0 +1,17 @@
+basicData_number 4      245 212 254 251 254     avg 254
+basicData_number 5      254 251 242 189 261     avg 237.6
+basicData_number 6      258 238 203 256 271     avg 254.2
+basicData_number 7      252 253 267 298 210     avg 256
+basicData_number 8      545 344 270 594 411     avg 432.8   
+basicData_number 9      465 439 333 246 333     avg 363.2
+basicData_number 10     272 340 389 292 294     avg 317.4
+basicData_number 11     298 365 324 240 339     avg 312.2
+basicData_number 12     1s20 487 626 1s93 579   avg 761
+basicData_number 13     2s751 2s790 2s779 1s975 2s847   avg 2.628s
+basicData_number 14     19s925  19s180  19s893  19s624 19s764   19s530
+basicData_number 15     1m22s   1m22s   1m23s   1m22s   1m25s   84s
+basicData_number 16     7m14s                                   424s
+basicData_number 17     29m1s                                   1740s
+
+
+
