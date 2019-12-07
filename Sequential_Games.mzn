@@ -59,7 +59,8 @@ constraint forall (i in games) (fun[i] < 1 -> plays[i] = 1);
 
 solve maximize sum(i in games)(plays[i] * fun[i]);
 %solve satisfy;
-output ["fun for each games            " ++ show(fun) ++ "\n" ++ 
+output ["number of games               " ++ show(num) ++ "\n" ++
+        "fun for each games            " ++ show(fun) ++ "\n" ++ 
         "number of tokens in each game " ++ show(t) ++ "\n" ++ 
         "sequence of play               " ++ show(plays) ++ "\n" ++ 
         "total fun: " ++ show (sum(i in games)(plays[i] * fun[i]))] ;
