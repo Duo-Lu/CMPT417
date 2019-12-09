@@ -5,7 +5,7 @@ def main(num):
     file = open("basicData_num_" + str(num) + ".dzn" , 'w')
 
     file.write("% number of games is " + str(num))
-    file.write("\n\n")
+    file.write("\n")
     file.write("num = " + str(num) + ";")
     file.write('\n')
     file.write("cap = " + str(5) + ";")
