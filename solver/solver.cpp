@@ -6,6 +6,7 @@
 #include <string>
 #include <bits/stdc++.h> 
 #include <time.h>
+#include <math.h>       /* floor */
 
 using namespace std;
 
@@ -127,18 +128,24 @@ int main() {
     // }
     
 
-    time_t start, end; 
+    // time_t start, end; 
 
-    time(&start); 
-    ios_base::sync_with_stdio(false); 
+    // time(&start); 
+    // ios_base::sync_with_stdio(false); 
 
+    auto start = chrono::steady_clock::now();
 
+    /**********************************************************************************************
+    The part below is done by classmate George He
+    ***********************************************************************************************/
 
     for (; i < num; i++)
     {
         // for every game, we play it first. Therefore, minus minus before current_token
-        token[i] = current_token--;
         play[i]++;
+        token[i] = current_token--;
+
+        //cout << "current_token: " << current_token << endl;
 
         // negative fun game, we just play it once
         if (fun[i] < 0)
@@ -147,8 +154,9 @@ int main() {
             current_token = min(current_token + refill , cap);
         }
         // positive fun games 
-        else
+        if (fun[i] >= 0)
         {
+        	
             int next_game;
             future_token = refill;
             next_game = i + 1;
@@ -157,49 +165,85 @@ int main() {
             // current tokens
             while (future_token < cap)
             {
-                // if we have the next game
-                if (next_game < num)
-                {
-                    // we find a game which fun value greater than current game
-                    if (fun[next_game] > fun[i])
-                    {
-                        // the next game have at least more qualificaiton to play the capacity.
-                        // In other words, the next game has potenital to play the capacity.
-                        // Therefore, we reserve at least (cap - future_token) to next game
-                        reserve = cap - future_token;
-                        // if we need reserve more than current token, we just play it once only
-                        if (reserve > current_token)
-                        {
-                            reserve = current_token;
-                        }
-                        break;
-                    }
-                }
-                else
-                {
-                    break;
-                }
-                next_game++;
-                future_token += refill - 1;
+	            // we find a game which fun value greater than current game
+	            if (fun[next_game] > fun[i] && next_game < num)
+	            {
+	                // the next game have at least more qualificaiton to play the capacity.
+	                // In other words, the next game has potenital to play the capacity.
+	                // Therefore, we reserve at least (cap - future_token) to next game
+	                reserve = cap - future_token;
+	                // if we need reserve more than current token, we just play it once only
+	                if (reserve > current_token)
+	                {
+	                    reserve = current_token;
+	                }
+	                break;
+	            }
+	        	next_game++;
+	            future_token += refill - 1;
             }
 
             current_token -= reserve;
             play[i] += current_token;
             total_fun += (play[i] * fun[i]);
-            current_token = min(reserve + refill , cap);
+            current_token = reserve + refill;
             reserve = 0;
         }
+        
+        	// [-4, -7, 17, 16, -11]
+        	/*
+        	cout << "current_token: " << current_token << endl;
+        	cout << "games: " << i << endl;
+	        int max_distance = floor(cap / refill);
+
+	        cout << "max_distance: " << max_distance << endl;
+	        
+	        int temp_refill = refill - 1;
+
+	        int next_game = i + 1;
+	        int distance = 0;
+
+	        cout << "index_next_game: " << next_game << endl;
+
+	        for(; next_game < num; next_game++)
+	        {
+	        	cout << "loop_execu" << endl;
+	        	distance += temp_refill;
+	        	if (fun[next_game] > fun[i])
+	        		break;
+	        }
+
+	        cout << "distance: " << distance << endl;
+
+	        if (distance >= max_distance)
+	        {
+	        	cout << "distance > max_distance_";
+	        	cout << "current_token: " << current_token << endl;
+	        	play[i] += current_token;
+	        	cout << "play[i]" << play[i] << " i " << i <<endl;
+	        	current_token = refill;
+	        }
+
+	        else
+	        {
+	        	current_token -= distance;
+	        	play[i] += current_token;
+	        	current_token += refill - 1;
+	        }
+     	}
+     	*/
     }
+   
 
-    time(&end); 
-
+    //time(&end); 
+    auto end = chrono::steady_clock::now();
     // cout << "fun for each game:   ";
     // for (int i = 0; i < num; i++)
     // {
     //     cout << fun[i] << "  "; 
     // }
     // cout << endl;
-
+    auto diff = end - start;
     cout << "tokens for each game: ";
     for (int index = 0; index < num; index++)
     {
@@ -216,10 +260,8 @@ int main() {
 
     cout << "The total fun is " << total_fun << endl;
 
-    double time_taken = double(end - start); 
-    cout << "Time taken by program is : " << fixed 
-         << time_taken << setprecision(5); 
-    cout << " sec " << endl; 
+    cout << "The running time in nanosecond: " ;
+    cout << chrono::duration <double, nano> (diff).count() << " ns" << endl;
 
     delete [] fun;
 }
